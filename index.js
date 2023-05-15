@@ -3,6 +3,8 @@ const express = require("express");
 const pattern = process.env.MATCH_PATTERN || "/**/*"
 const mockResponse = process.env.MOCK_RESPONSE || { success: true }
 const mockResponseType = process.env.MOCK_RESPONSE_TYPE = "application/json"
+const port = process.env.MOCK_PORT || 8084
+
 
 const app = express();
 
@@ -42,4 +44,6 @@ app.get("/_tail", (_, res) => {
   res.status(200).send(tail);
 });
 
-app.listen(8000, () => console.log("Listening on PORT 8000"));
+app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`);
+
+
