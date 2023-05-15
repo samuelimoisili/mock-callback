@@ -1,10 +1,9 @@
 const express = require("express");
 
-const pattern = process.env.MATCH_PATTERN || "/**/*"
-const mockResponse = process.env.MOCK_RESPONSE || { success: true }
-const mockResponseType = process.env.MOCK_RESPONSE_TYPE = "application/json"
-const port = process.env.MOCK_PORT || 8084
-
+const pattern = process.env.MATCH_PATTERN || "/**/*";
+const mockResponse = process.env.MOCK_RESPONSE || { success: true };
+const mockResponseType = process.env.MOCK_RESPONSE_TYPE = "application/json";
+const port = process.env.MOCK_PORT || 8084;
 
 const app = express();
 
@@ -29,21 +28,20 @@ app.all(pattern, (req, res) => {
 });
 
 app.get("/_history", (_, res) => {
-  res.status(200).send(history)
-})
+  console.log("Retrieve history");
+  res.status(200).send(history);
+});
 
 app.get("/_tail", (_, res) => {
-  console.log('Retrieving recent callback')
+  console.log('Retrieve tail');
   const tail = history.at(-1);
 
-  if (!callback) {
-    res.status(404).send("NOT_FOUND");
+  if (!tail) {
+    res.status(404).send({});
     return;
   }
 
   res.status(200).send(tail);
 });
 
-app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`);
-
-
+app.listen(port, () => console.log(`Listening on port ${port}`));
